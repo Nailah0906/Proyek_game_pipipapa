@@ -14,42 +14,41 @@ public class Player_movement : MonoBehaviour
 
     void Update()
     {
-        PutarBadanKeMouse(); // Rotasi harus dihitung duluan biar arah majunya bener
-        GerakRelatif();
+        GerakBebas();      // WASD = Atas Bawah Kiri Kanan (Tetap)
+        PutarKeMouse();    // Mouse = Arah Moncong
     }
 
-    // --- 1. GERAKAN POSISI (RELATIF TERHADAP MONCONG) ---
-    void GerakRelatif()
+    // --- 1. GERAKAN POSISI (WORLD SPACE) ---
+    void GerakBebas()
     {
         float inputX = Input.GetAxis("Horizontal"); // A / D
         float inputY = Input.GetAxis("Vertical");   // W / S
 
-        // Logika Matematika Vektor (Manual Transform):
-        // W/S menggerakkan player searah "Atas/Moncong" (transform.up)
-        // A/D menggerakkan player searah "Kanan-nya Player" (transform.right)
-        
-        Vector3 gerakMaju = transform.up * inputY;
-        Vector3 gerakSamping = transform.right * inputX;
+        // LOGIKA BARU:
+        // Kita pakai Vector3(x, y, 0) murni.
+        // W akan selalu nambah Y (Ke Atas Layar), biarpun meriam lagi nungging.
+        Vector3 arahGerak = new Vector3(inputX, inputY, 0).normalized;
 
-        // Gabungkan kedua vektor
-        Vector3 totalGerak = (gerakMaju + gerakSamping).normalized;
-
-        // Terapkan ke posisi
-        transform.position += totalGerak * moveSpeed * Time.deltaTime;
+        // Terapkan posisi (Manual Transform)
+        transform.position += arahGerak * moveSpeed * Time.deltaTime;
     }
 
     // --- 2. GERAKAN ROTASI (MOUSE AIMING) ---
-    void PutarBadanKeMouse()
+    void PutarKeMouse()
     {
         if (mainCamera == null) return;
 
+        // Ambil posisi mouse di dunia game
         Vector3 mouseScreenPos = Input.mousePosition;
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
-        mouseWorldPos.z = transform.position.z;
+        mouseWorldPos.z = transform.position.z; // Samakan Z biar akurat
 
+        // Hitung arah dari Player ke Mouse
         Vector3 arahPandang = (mouseWorldPos - transform.position).normalized;
 
-        // Hadapkan sumbu Y (atas/moncong) ke arah mouse
+        // Terapkan Rotasi
+        // Asumsi: Gambar meriam menghadap ke ATAS.
+        // Kalau gambarmu menghadap KANAN, ganti transform.up jadi transform.right
         transform.up = arahPandang;
     }
 }
