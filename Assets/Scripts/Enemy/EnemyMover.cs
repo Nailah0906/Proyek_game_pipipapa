@@ -3,22 +3,24 @@ using System.Collections;
 
 public class EnemyMover : MonoBehaviour
 {
-    [Header("Stats Musuh")]
-    public float moveSpeed = 3.0f;     
-    public float shrinkSpeed = 2.0f;   
-    public int scorePoint = 10;        
+    [Header("Stats")]
+    [SerializeField] private float moveSpeed = 3.0f;
+    [SerializeField] private float shrinkSpeed = 5.0f;
+    [SerializeField] private int scorePoint = 10;
 
-    [Header("Referensi")]
-    public Transform targetPlayer;     
-
-    private bool isDead = false;
+    [Header("References")]
+    private Transform targetPlayer;
     private SpriteRenderer sr;
     private Collider2D col;
+    private EnemyAnimator anim;
 
-    void Start()
+    private bool isDead = false;
+
+    private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        anim = GetComponent<EnemyAnimator>();
     }
 
     public void SetTarget(Transform player)
@@ -26,45 +28,42 @@ public class EnemyMover : MonoBehaviour
         targetPlayer = player;
     }
 
-    void Update()
+    private void Update()
     {
         if (targetPlayer == null || isDead) return;
         MoveToTarget();
     }
 
-    void MoveToTarget()
+    private void MoveToTarget()
     {
-        // 1. Hitung arah
         Vector3 direction = (targetPlayer.position - transform.position).normalized;
-
-        // 2. Gerak Manual
         transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // 3. Putar badan (Atas ketemu Arah)
-        transform.up = direction; 
+        
+        if (direction.x > 0) sr.flipX = false;
+        else if (direction.x < 0) sr.flipX = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Deteksi Peluru (Apapun namanya yang penting ada kata Bullet/Peluru)
         if (other.name.Contains("Bullet") || other.name.Contains("Peluru") || other.CompareTag("Bullet"))
         {
             if (!isDead)
             {
-                Destroy(other.gameObject); // Hapus Peluru
-                StartCoroutine(DieProcess()); // Musuh Mati
+                Destroy(other.gameObject);
+                StartCoroutine(DieProcess());
             }
         }
     }
 
-    IEnumerator DieProcess()
+    private IEnumerator DieProcess()
     {
         isDead = true;
-        if(col != null) col.enabled = false; 
-        if(sr != null) sr.color = Color.red; // Jadi merah
+        if (col != null) col.enabled = false;
+        if (anim != null) anim.enabled = false;
 
-        // Animasi Mengecil
-        while (transform.localScale.x > 0.1f)
+        if (sr != null) sr.color = Color.red;
+
+        while (transform.localScale.x > 0.05f)
         {
             transform.localScale -= Vector3.one * shrinkSpeed * Time.deltaTime;
             yield return null;
@@ -75,6 +74,6 @@ public class EnemyMover : MonoBehaviour
             GameManager.Instance.AddScore(scorePoint);
         }
 
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
 }

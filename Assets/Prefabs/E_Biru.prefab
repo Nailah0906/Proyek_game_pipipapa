@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5403675672754056316}
   - component: {fileID: 5588023289496666303}
   - component: {fileID: 1794367431464275904}
+  - component: {fileID: 8413467499943174205}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: E_Biru
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 2.3, y: 2.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3573036208370857778, guid: 324af7d41caf84d4cb6002f539d6b3d1, type: 3}
+  m_Sprite: {fileID: -4293983775413263333, guid: 8ec9cbbb7b5e9e24f939ce5d8853589d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,3 +173,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.315
+--- !u!114 &8413467499943174205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7503602393805953554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66039dba96c794a448fd233346ed5d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimator
+  wobbleSpeed: 10
+  wobbleAmount: 0.1
+  visualTransform: {fileID: 0}

@@ -2,38 +2,42 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;  
-    public Transform playerTarget;  
-    
-    [Header("Waktu Spawn")]
-    public float interval = 3.0f;   
-    public float radius = 8.0f;     
+    [Header("References")]
+    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Transform playerTarget;
 
-    private float timer;
+    [Header("Spawn Settings")]
+    [SerializeField] private float spawnInterval = 1.0f;
+    [SerializeField] private float spawnRadius = 10.0f;
 
-    void Update()
+    private float spawnTimer;
+
+    private void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= interval)
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval)
         {
-            SpawnEnemy();
-            timer = 0;
+            SpawnRandomEnemy();
+            spawnTimer = 0f;
         }
     }
 
-    void SpawnEnemy()
+    private void SpawnRandomEnemy()
     {
-        if (enemyPrefab == null || playerTarget == null) return;
+        if (enemyPrefabs == null || enemyPrefabs.Length == 0 || playerTarget == null) return;
 
-        // Posisi Acak Lingkaran
-        Vector2 randomPoint = Random.insideUnitCircle.normalized * radius;
-        Vector3 spawnPos = playerTarget.position + (Vector3)randomPoint;
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        GameObject selectedPrefab = enemyPrefabs[randomIndex];
 
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        Vector2 randomCircle = Random.insideUnitCircle.normalized * spawnRadius;
+        Vector3 spawnPosition = playerTarget.position + (Vector3)randomCircle;
 
-        if (newEnemy.GetComponent<EnemyMover>())
+        GameObject newEnemy = Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
+
+        if (newEnemy.TryGetComponent<EnemyMover>(out EnemyMover mover))
         {
-            newEnemy.GetComponent<EnemyMover>().SetTarget(playerTarget);
+            mover.SetTarget(playerTarget);
         }
     }
 }
