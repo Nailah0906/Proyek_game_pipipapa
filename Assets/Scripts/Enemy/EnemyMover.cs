@@ -13,6 +13,15 @@ public class EnemyMover : MonoBehaviour
     private Collider2D col;
     private bool isDead = false;
 
+    // [1] Variabel ini mengatur seberapa sering musuh bisa menyerang (misal: 1 kali per detik)
+    [SerializeField] private float attackRate = 1f; 
+    
+    // [2] Variabel ini adalah penghitung waktu (cooldown) saat ini
+    private float attackTimer; 
+    
+    // [3] Variabel ini mengatur seberapa besar damage yang diberikan
+    public int damageAmount = 10;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -26,6 +35,8 @@ public class EnemyMover : MonoBehaviour
 
     private void Update()
     {
+        attackTimer += Time.deltaTime; 
+        
         if (targetPlayer == null || isDead) return;
         MoveToTarget();
     }
@@ -62,6 +73,25 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isDead) return; 
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (attackTimer >= attackRate)
+            {
+                // Cari PlayerHealth 
+                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damageAmount); 
+                    attackTimer = 0f; 
+                }
+            }
+        }
+    }
     private IEnumerator DieProcess()
     {
         isDead = true;
