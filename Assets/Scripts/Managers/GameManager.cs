@@ -48,6 +48,15 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
+    // Contoh dalam script peluru/musuh, saat musuh hancur:
+
+    public void OnEnemyDestroyed(int points)
+    {
+        // Cari ScoreManager di scene dan panggil AddScore
+        FindObjectOfType<ScoreManager>().AddScore(points);
+        Destroy(gameObject);
+    }
+
     void UpdateScoreUI()
     {
         if (scoreText != null)

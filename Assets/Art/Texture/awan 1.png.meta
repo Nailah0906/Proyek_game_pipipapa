@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5e81c595b4cb82d41a9dd674dc9779a7
+guid: 160e9d2adc7fd614aa86b82155e9d16b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4424639891517422229
-    second: download (3)_0
+      213: -4979207437282224977
+    second: awan 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: download (3)_0
+      name: awan 1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 16
-        width: 401
-        height: 386
+        x: 0
+        y: 0
+        width: 1316
+        height: 527
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b65c41f16758892c0800000000000000
-      internalID: -4424639891517422229
+      spriteID: fa45fcd773d46eab0800000000000000
+      internalID: -4979207437282224977
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      download (3)_0: -4424639891517422229
+      awan 1_0: -4979207437282224977
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
