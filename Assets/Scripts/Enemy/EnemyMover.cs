@@ -5,22 +5,18 @@ public class EnemyMover : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private float moveSpeed = 3.0f;
-    [SerializeField] private float shrinkSpeed = 5.0f;
     [SerializeField] private int scorePoint = 10;
 
     [Header("References")]
     private Transform targetPlayer;
     private SpriteRenderer sr;
     private Collider2D col;
-    private EnemyAnimator anim;
-
     private bool isDead = false;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        anim = GetComponent<EnemyAnimator>();
     }
 
     public void SetTarget(Transform player)
@@ -36,9 +32,11 @@ public class EnemyMover : MonoBehaviour
 
     private void MoveToTarget()
     {
+        if (targetPlayer == null) return;
+
         Vector3 direction = (targetPlayer.position - transform.position).normalized;
         transform.position += direction * moveSpeed * Time.deltaTime;
-        
+
         if (direction.x > 0) sr.flipX = false;
         else if (direction.x < 0) sr.flipX = true;
     }
@@ -53,19 +51,35 @@ public class EnemyMover : MonoBehaviour
                 StartCoroutine(DieProcess());
             }
         }
+        else if (other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1);
+                StartCoroutine(DieProcess());
+            }
+        }
     }
 
     private IEnumerator DieProcess()
     {
         isDead = true;
         if (col != null) col.enabled = false;
+
+        Animator anim = GetComponent<Animator>();
         if (anim != null) anim.enabled = false;
 
         if (sr != null) sr.color = Color.red;
 
-        while (transform.localScale.x > 0.05f)
+        float timer = 0;
+        float duration = 0.2f;
+        Vector3 startScale = transform.localScale;
+
+        while (timer < duration)
         {
-            transform.localScale -= Vector3.one * shrinkSpeed * Time.deltaTime;
+            timer += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startScale, Vector3.zero, timer / duration);
             yield return null;
         }
 
