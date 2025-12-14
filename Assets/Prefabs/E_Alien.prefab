@@ -109,7 +109,6 @@ MonoBehaviour:
   moveSpeed: 3
   shrinkSpeed: 2
   scorePoint: 10
-  targetPlayer: {fileID: 0}
 --- !u!50 &5588023289496666303
 Rigidbody2D:
   serializedVersion: 5
