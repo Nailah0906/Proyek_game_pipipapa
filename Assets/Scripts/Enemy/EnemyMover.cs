@@ -13,13 +13,10 @@ public class EnemyMover : MonoBehaviour
     private Collider2D col;
     private bool isDead = false;
 
-    // [1] Variabel ini mengatur seberapa sering musuh bisa menyerang (misal: 1 kali per detik)
     [SerializeField] private float attackRate = 1f; 
     
-    // [2] Variabel ini adalah penghitung waktu (cooldown) saat ini
     private float attackTimer; 
     
-    // [3] Variabel ini mengatur seberapa besar damage yang diberikan
     public int damageAmount = 10;
 
     private void Start()
