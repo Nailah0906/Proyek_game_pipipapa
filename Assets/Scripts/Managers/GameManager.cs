@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // Ini biar dia dikenal semua orang
+    public static GameManager Instance; 
     public int totalScore = 0;
 
     [Header("UI Text References")]
@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // Singleton Pattern (Jurus biar Manager cuma ada 1)
         if (Instance == null) 
         {
             Instance = this;
