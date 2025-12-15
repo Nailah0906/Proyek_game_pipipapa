@@ -882,6 +882,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Meriam
       objectReference: {fileID: 0}
+    - target: {fileID: 7512531949086556303, guid: 2a6bcd16569a6984a89f868384ef0607, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7727033811411620383, guid: 2a6bcd16569a6984a89f868384ef0607, type: 3}
       propertyPath: m_SortingOrder
       value: 4
@@ -908,6 +912,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7512531949086556303, guid: 2a6bcd16569a6984a89f868384ef0607, type: 3}
       insertIndex: -1
       addedObject: {fileID: 791162723}
+    - targetCorrespondingSourceObject: {fileID: 7512531949086556303, guid: 2a6bcd16569a6984a89f868384ef0607, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 791162724}
   m_SourcePrefab: {fileID: 100100000, guid: 2a6bcd16569a6984a89f868384ef0607, type: 3}
 --- !u!1 &791162716 stripped
 GameObject:
@@ -946,6 +953,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &791162724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791162716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a2322c73692744da37b5f4e0873104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 1
 --- !u!1 &855213112
 GameObject:
   m_ObjectHideFlags: 0
