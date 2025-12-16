@@ -6,14 +6,23 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 5;
     public Text healthText;
+    public GameObject gameOverUI; 
 
     private int currentHealth;
     private bool canTakeDamage = true;
 
     void Start()
     {
+
+        Time.timeScale = 1;
+
         currentHealth = maxHealth;
         UpdateHealthUI();
+
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -34,13 +43,23 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            RestartGame();
+            PlayerDie();
         }
         else
         {
             canTakeDamage = false;
             Invoke("ResetDamageCooldown", 0.5f);
         }
+    }
+
+    void PlayerDie()
+    {
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+        }
+
+        Time.timeScale = 0;
     }
 
     void ResetDamageCooldown()
@@ -56,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void RestartGame()
+    public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
