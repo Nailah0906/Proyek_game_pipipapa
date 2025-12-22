@@ -6,14 +6,16 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 5;
     public Text healthText;
-    public GameObject gameOverUI;
+    public GameObject gameOverUI; 
 
     private int currentHealth;
     private bool canTakeDamage = true;
 
     void Start()
     {
+
         Time.timeScale = 1;
+
         currentHealth = maxHealth;
         UpdateHealthUI();
 
@@ -56,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
         {
             gameOverUI.SetActive(true);
         }
+
         Time.timeScale = 0;
     }
 
