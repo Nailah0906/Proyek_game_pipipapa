@@ -76,4 +76,10 @@ public class PlayerHealth : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void GoToStartScreen()
+    {
+    Time.timeScale = 1;
+    SceneManager.LoadScene("startscreen"); 
+    }
 }
