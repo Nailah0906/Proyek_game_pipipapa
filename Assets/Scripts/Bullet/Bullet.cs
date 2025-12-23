@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Kecepatan Peluru
+    // kecepatan Peluru
     public float speed = 15f;
     private Rigidbody2D rb;
 

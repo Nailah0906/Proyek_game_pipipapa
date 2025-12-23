@@ -29,13 +29,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // --- PENAMBAHAN: Sembunyikan Game Over Panel di awal ---
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
         }
         
-        // Panggil Update Score UI saat game mulai
         UpdateScoreUI();
     }
 
@@ -47,11 +45,8 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
-    // Contoh dalam script peluru/musuh, saat musuh hancur:
-
     public void OnEnemyDestroyed(int points)
     {
-        // Cari ScoreManager di scene dan panggil AddScore
         FindObjectOfType<ScoreManager>().AddScore(points);
         Destroy(gameObject);
     }
@@ -76,7 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameOverPanel != null)
         {
-            gameOverPanel.SetActive(true); // Tampilkan Panel Game Over
+            gameOverPanel.SetActive(true); 
         }
         
         if (finalScoreText != null)
@@ -88,10 +83,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        // Pastikan waktu game kembali normal
         Time.timeScale = 1f; 
         
-        // Muat ulang scene yang aktif saat ini
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         Destroy(gameObject); 
